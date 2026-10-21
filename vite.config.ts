@@ -1,4 +1,3 @@
-/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -10,9 +9,5 @@ export default defineConfig({
     rollupOptions: {
       output: { manualChunks: { three: ['three'] } },
     },
-  },
-  test: {
-    include: ['tests/**/*.test.ts'],
-    environment: 'node',
   },
 });
