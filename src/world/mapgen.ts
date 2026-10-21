@@ -52,7 +52,9 @@ export function generateMap(seed: number, size = MAP_SIZE): GeneratedMap {
   const base = Math.floor(size * (0.55 + hash2(1, 2, seed) * 0.2));
   const canalX: number[] = [];
   for (let y = 0; y < size; y++) {
-    const cx = Math.round(base + Math.sin(y / 7 + seed) * 3 + (smoothNoise(0, y, seed + 5, 9) - 0.5) * 4);
+    const cx = Math.round(
+      base + Math.sin(y / 7 + seed) * 3 + (smoothNoise(0, y, seed + 5, 9) - 0.5) * 4,
+    );
     canalX.push(cx);
     for (let dx = 0; dx < 2; dx++) {
       const x = cx + dx;

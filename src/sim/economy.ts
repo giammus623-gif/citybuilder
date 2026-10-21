@@ -50,12 +50,22 @@ export interface DayResult {
   profitto: number;
 }
 
-export function businessDay(a: Archetype, catchment: number, competitors: number, staffRatio: number): DayResult {
+export function businessDay(
+  a: Archetype,
+  catchment: number,
+  competitors: number,
+  staffRatio: number,
+): DayResult {
   const clienti = Math.round(
-    referenceCustomers(a) * demandFactor(catchment) * crowdingFactor(a, competitors) * (0.4 + 0.6 * staffRatio),
+    referenceCustomers(a) *
+      demandFactor(catchment) *
+      crowdingFactor(a, competitors) *
+      (0.4 + 0.6 * staffRatio),
   );
   const entrate = clienti * a.scontrino;
-  const uscite = Math.round(entrate * (1 - a.margine) + a.costiFissiGiorno + a.posti * SALARY_PER_DAY);
+  const uscite = Math.round(
+    entrate * (1 - a.margine) + a.costiFissiGiorno + a.posti * SALARY_PER_DAY,
+  );
   return { clienti, entrate, uscite, profitto: entrate - uscite };
 }
 

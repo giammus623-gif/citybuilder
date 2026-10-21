@@ -4,7 +4,7 @@
  */
 import { World } from '../src/sim/world';
 import { TICKS_PER_DAY } from '../src/sim/constants';
-import { referenceCommands } from './scenario';
+import { referenceCommands } from '../src/sim/scenario';
 
 const days = Number(process.argv[2] ?? 3);
 const seeds = Number(process.argv[3] ?? 3);

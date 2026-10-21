@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { World } from '../src/sim/world';
 import { TICKS_PER_DAY, TileUse } from '../src/sim/constants';
-import { referenceCommands } from '../tools/scenario';
+import { referenceCommands } from '../src/sim/scenario';
 
 function run(seed: number, days: number): World {
   const w = new World(seed, 'pizzeria');
@@ -50,5 +50,15 @@ describe('World', () => {
     expect(l.tick).toBe(w.tick);
     for (let i = 0; i < 2000; i++) l.step();
     expect(l.pop).toBeGreaterThan(0);
+  });
+});
+
+describe('save export', () => {
+  it('round-trips through JSON', async () => {
+    const { exportSave, importSave } = await import('../src/save/idb');
+    const w = run(4, 1);
+    const back = importSave(exportSave(w.serialize()));
+    expect(back.use).toBeInstanceOf(Uint8Array);
+    expect(World.deserialize(back).pop).toBe(w.pop);
   });
 });

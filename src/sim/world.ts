@@ -3,7 +3,6 @@ import { generateMap } from '../world/mapgen';
 import {
   BKind,
   CAPACITY,
-  COSTS,
   CONSTRUCTION_TICKS,
   CState,
   MAP_SIZE,
@@ -20,9 +19,10 @@ import {
 import { bandFor, businessDay, type DayResult } from './economy';
 import { RoadGraph } from './pathfinding';
 import { Rng } from './rng';
+import { tileCost, type Tool } from './rules';
 import { Buildings, Citizens } from './stores';
 
-export type Tool = 'road' | 'res' | 'com' | 'ind' | 'park' | 'bulldoze';
+export type { Tool } from './rules';
 
 export type Command = { t: 'paint'; tool: Tool; tiles: number[] } | { t: 'undo' } | { t: 'redo' };
 
@@ -119,7 +119,14 @@ export class World {
   employed = 0;
   jobs = 0;
   happiness = 50;
-  factors: HappinessFactors = { base: 30, lavoro: 0, parchi: 0, negozi: 0, tragitto: 0, inquinamento: 0 };
+  factors: HappinessFactors = {
+    base: 30,
+    lavoro: 0,
+    parchi: 0,
+    negozi: 0,
+    tragitto: 0,
+    inquinamento: 0,
+  };
   demand: Demand = { r: 0, c: 0, i: 0 };
   business!: BusinessState;
   ledger: LedgerDay[] = [];
@@ -283,32 +290,24 @@ export class World {
 
   /** -1 when the tool cannot act on this tile. */
   tileCost(tool: Tool, t: number): number {
-    const use = this.use[t];
-    const water = this.terrain[t] === Terrain.Water;
-    switch (tool) {
-      case 'road':
-        if (use !== TileUse.Empty) return -1;
-        return water ? COSTS.bridge : COSTS.road;
-      case 'res':
-      case 'com':
-      case 'ind': {
-        const z = tool === 'res' ? Zone.Res : tool === 'com' ? Zone.Com : Zone.Ind;
-        if (use !== TileUse.Empty || water || this.zone[t] === z) return -1;
-        return COSTS.zone;
-      }
-      case 'park':
-        if (use !== TileUse.Empty || water) return -1;
-        return COSTS.park;
-      case 'bulldoze':
-        if (this.highway[t]) return -1;
-        if (use === TileUse.Building && this.bldAt[t] === this.playerBld) return -1;
-        if (use === TileUse.Empty && this.zone[t] === Zone.None) return -1;
-        return COSTS.bulldoze;
-    }
+    return tileCost(tool, {
+      use: this.use[t],
+      zone: this.zone[t],
+      terrain: this.terrain[t],
+      highway: this.highway[t] === 1,
+      playerLot: this.bldAt[t] === this.playerBld && this.use[t] === TileUse.Building,
+    });
   }
 
   private paint(cmd: PaintCmd): UndoEntry | null {
-    const entry: UndoEntry = { cmd, tiles: [], prevUse: [], prevZone: [], prevTerrain: [], cost: 0 };
+    const entry: UndoEntry = {
+      cmd,
+      tiles: [],
+      prevUse: [],
+      prevZone: [],
+      prevTerrain: [],
+      cost: 0,
+    };
     let roadsChanged = false;
     let broke = false;
     for (const t of new Set(cmd.tiles)) {
@@ -447,8 +446,14 @@ export class World {
       if (b.progress[id] >= 1) {
         b.capacity[id] = CAPACITY[b.kind[id]][b.level[id]];
         if (b.level[id] === 1) {
-          const key = b.kind[id] === BKind.Res ? 'evt.newHome' : b.kind[id] === BKind.Com ? 'evt.newShop' : 'evt.newFactory';
-          if (this.rng.chance(0.25) || this.countKind(b.kind[id]) <= 1) this.emit(key, undefined, b.tile[id]);
+          const key =
+            b.kind[id] === BKind.Res
+              ? 'evt.newHome'
+              : b.kind[id] === BKind.Com
+                ? 'evt.newShop'
+                : 'evt.newFactory';
+          if (this.rng.chance(0.25) || this.countKind(b.kind[id]) <= 1)
+            this.emit(key, undefined, b.tile[id]);
         }
       }
     }
@@ -468,7 +473,10 @@ export class World {
     let jobs = 0;
     for (let id = 0; id < b.count; id++) {
       if (!b.alive[id]) continue;
-      const planned = b.progress[id] >= 1 ? b.capacity[id] : CAPACITY[b.kind[id]]?.[b.level[id]] ?? b.capacity[id];
+      const planned =
+        b.progress[id] >= 1
+          ? b.capacity[id]
+          : (CAPACITY[b.kind[id]]?.[b.level[id]] ?? b.capacity[id]);
       if (b.kind[id] === BKind.Res) housing += planned;
       else {
         if (b.kind[id] === BKind.Com) comJobs += planned;
@@ -507,7 +515,10 @@ export class World {
       let pick = list[this.rng.int(0, list.length - 1)];
       for (let k = 0; k < 2; k++) {
         const o = list[this.rng.int(0, list.length - 1)];
-        const better = kind === BKind.Ind ? this.landValue[o] < this.landValue[pick] : this.landValue[o] > this.landValue[pick];
+        const better =
+          kind === BKind.Ind
+            ? this.landValue[o] < this.landValue[pick]
+            : this.landValue[o] > this.landValue[pick];
         if (better) pick = o;
       }
       const id = this.b.add(pick, kind, this.rng.int(0, 7));
@@ -530,11 +541,24 @@ export class World {
     const b = this.b;
     const free: number[] = [];
     for (let id = 0; id < b.count; id++) {
-      if (b.kind[id] === BKind.Res && b.isActive(id) && b.occ[id] < b.capacity[id] && b.access[id] >= 0 && this.reachable(b.access[id])) free.push(id);
+      if (
+        b.kind[id] === BKind.Res &&
+        b.isActive(id) &&
+        b.occ[id] < b.capacity[id] &&
+        b.access[id] >= 0 &&
+        this.reachable(b.access[id])
+      )
+        free.push(id);
     }
     if (free.length === 0) return;
     const home = free[this.rng.int(0, free.length - 1)];
-    const id = this.c.add(home, this.rng.int(-300, 600), this.rng.range(-0.28, 0.28), this.tick, this.rng.chance(WORKER_SHARE));
+    const id = this.c.add(
+      home,
+      this.rng.int(-300, 600),
+      this.rng.range(-0.28, 0.28),
+      this.tick,
+      this.rng.chance(WORKER_SHARE),
+    );
     b.occ[home]++;
     this.pop++;
     // Newcomers walk in from the highway (Part 4.1).
@@ -624,7 +648,12 @@ export class World {
   private goTo(i: number, dest: number, purpose: Purpose): void {
     const c = this.c;
     const b = this.b;
-    const from = c.state[i] === CState.Home ? b.access[c.home[i]] : c.state[i] === CState.Moving ? this.currentTile(i) : b.access[c.dest[i]];
+    const from =
+      c.state[i] === CState.Home
+        ? b.access[c.home[i]]
+        : c.state[i] === CState.Moving
+          ? this.currentTile(i)
+          : b.access[c.dest[i]];
     const to = b.access[dest];
     this.startPath(i, from >= 0 && to >= 0 ? this.roads.path(from, to) : null, dest, purpose);
   }
@@ -767,7 +796,8 @@ export class World {
     const b = this.b;
     for (let id = 0; id < b.count; id++) {
       if (!b.alive[id]) continue;
-      if (b.kind[id] === BKind.Com || b.kind[id] === BKind.Player) this.stamp(this.shopNear, b.tile[id], 6, 1);
+      if (b.kind[id] === BKind.Com || b.kind[id] === BKind.Player)
+        this.stamp(this.shopNear, b.tile[id], 6, 1);
       if (b.kind[id] === BKind.Ind) this.stamp(this.pollution, b.tile[id], 3, 1);
     }
     for (let t = 0; t < n; t++) {
@@ -785,7 +815,14 @@ export class World {
   private updateHappiness(): void {
     const c = this.c;
     const b = this.b;
-    const sum: HappinessFactors = { base: 0, lavoro: 0, parchi: 0, negozi: 0, tragitto: 0, inquinamento: 0 };
+    const sum: HappinessFactors = {
+      base: 0,
+      lavoro: 0,
+      parchi: 0,
+      negozi: 0,
+      tragitto: 0,
+      inquinamento: 0,
+    };
     let total = 0;
     let n = 0;
     for (let i = 0; i < c.count; i++) {
@@ -793,7 +830,8 @@ export class World {
       const ht = b.tile[c.home[i]];
       const f: HappinessFactors = {
         base: 30,
-        lavoro: c.work[i] >= 0 || !c.worker[i] ? 30 : this.tick - c.jobless[i] > TICKS_PER_DAY ? -10 : 5,
+        lavoro:
+          c.work[i] >= 0 || !c.worker[i] ? 30 : this.tick - c.jobless[i] > TICKS_PER_DAY ? -10 : 5,
         parchi: this.parkNear[ht] > 0 ? 15 : 0,
         negozi: this.shopNear[ht] > 0 ? 15 : 0,
         tragitto: 0,
@@ -805,7 +843,10 @@ export class World {
         const d = Math.abs(hx - wx) + Math.abs(hy - wy);
         f.tragitto = d < 12 ? 10 : d < 25 ? 5 : -5;
       }
-      const h = Math.max(0, Math.min(100, f.base + f.lavoro + f.parchi + f.negozi + f.tragitto + f.inquinamento));
+      const h = Math.max(
+        0,
+        Math.min(100, f.base + f.lavoro + f.parchi + f.negozi + f.tragitto + f.inquinamento),
+      );
       c.happy[i] = h;
       total += h;
       n++;
@@ -843,7 +884,10 @@ export class World {
       if (b.kind[id] === BKind.Com && b.isActive(id) && d <= 6) comp++;
     }
     const bus = this.business;
-    return { bacino: people + bus.visiteOggi * 2 + Math.round(bus.passaggioOggi * 0.5), concorrenti: comp };
+    return {
+      bacino: people + bus.visiteOggi * 2 + Math.round(bus.passaggioOggi * 0.5),
+      concorrenti: comp,
+    };
   }
 
   private estimateBusiness(): void {
@@ -852,7 +896,12 @@ export class World {
     bus.bacino = bacino;
     bus.concorrenti = concorrenti;
     bus.dipendenti = this.b.occ[this.playerBld];
-    bus.stimaOggi = businessDay(this.archetype, bacino, concorrenti, bus.dipendenti / Math.max(1, bus.posti));
+    bus.stimaOggi = businessDay(
+      this.archetype,
+      bacino,
+      concorrenti,
+      bus.dipendenti / Math.max(1, bus.posti),
+    );
   }
 
   private endOfDay(): void {
@@ -914,7 +963,8 @@ export class World {
     mix(Math.round(this.money));
     mix(this.rng.state);
     mix(this.pop);
-    for (let i = 0; i < this.use.length; i++) mix(this.use[i] | (this.zone[i] << 4) | (this.terrain[i] << 8));
+    for (let i = 0; i < this.use.length; i++)
+      mix(this.use[i] | (this.zone[i] << 4) | (this.terrain[i] << 8));
     for (let id = 0; id < this.b.count; id++) {
       mix(this.b.alive[id] ? this.b.tile[id] : -1);
       mix(this.b.level[id] | (this.b.kind[id] << 4) | (this.b.occ[id] << 8));
@@ -977,7 +1027,8 @@ export class World {
   }
 
   static deserialize(s: SaveData): World {
-    if (s.version !== SAVE_VERSION) throw new Error(`Versione salvataggio non supportata: ${s.version}`);
+    if (s.version !== SAVE_VERSION)
+      throw new Error(`Versione salvataggio non supportata: ${s.version}`);
     const w = new World(s.seed, s.archetype, Math.round(Math.sqrt(s.use.length)));
     w.tick = s.tick;
     w.money = s.money;

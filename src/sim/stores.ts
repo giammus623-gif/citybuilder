@@ -26,7 +26,10 @@ export class Buildings {
   }
 
   private grow(n: number): void {
-    const copy = <T extends Int32Array | Uint8Array | Int16Array | Float32Array>(a: T, C: new (n: number) => T): T => {
+    const copy = <T extends Int32Array | Uint8Array | Int16Array | Float32Array>(
+      a: T,
+      C: new (n: number) => T,
+    ): T => {
       const b = new C(n);
       b.set(a);
       return b;
@@ -111,7 +114,10 @@ export class Citizens {
   }
 
   private grow(n: number): void {
-    const copy = <T extends Int32Array | Uint8Array | Int16Array | Float32Array>(a: T, C: new (n: number) => T): T => {
+    const copy = <T extends Int32Array | Uint8Array | Int16Array | Float32Array>(
+      a: T,
+      C: new (n: number) => T,
+    ): T => {
       const b = new C(n);
       b.set(a);
       return b;

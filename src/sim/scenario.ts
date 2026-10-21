@@ -1,10 +1,15 @@
-import type { World, Command } from '../src/sim/world';
+import type { Command } from './world';
+
+interface Layout {
+  size: number;
+  business: { tile: number };
+}
 
 /**
  * A reference layout used by tests and the headless balance tool: a small grid of
  * streets next to the start lot with residential, commercial and industrial blocks.
  */
-export function referenceCommands(w: World): Command[] {
+export function referenceCommands(w: Layout): Command[] {
   const s = w.size;
   const start = w.business.tile;
   const sx = start % s;
@@ -22,7 +27,11 @@ export function referenceCommands(w: World): Command[] {
     { t: 'paint', tool: 'road', tiles: tiles(avenue, hy - 12, avenue, hy + 12) },
   ];
   for (const dy of [-12, -6, 6, 12]) {
-    cmds.push({ t: 'paint', tool: 'road', tiles: tiles(avenue - 10, hy + dy, avenue + 6, hy + dy) });
+    cmds.push({
+      t: 'paint',
+      tool: 'road',
+      tiles: tiles(avenue - 10, hy + dy, avenue + 6, hy + dy),
+    });
   }
   cmds.push({ t: 'paint', tool: 'res', tiles: tiles(avenue - 10, hy - 11, avenue - 1, hy - 7) });
   cmds.push({ t: 'paint', tool: 'res', tiles: tiles(avenue - 10, hy + 7, avenue - 1, hy + 11) });
