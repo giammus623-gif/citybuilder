@@ -1,0 +1,38 @@
+{
+  "name": "orvane-table",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Project Orvane Table: sito, prenotazioni e assistente AI per ristoranti indipendenti, a investimento zero.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "controlla": "tsc --noEmit && vitest run",
+    "demo": "tsx tools/demo.ts",
+    "siti": "tsx tools/genera-siti.ts",
+    "assistente": "tsx tools/assistente.ts",
+    "modello": "tsx tools/modello-finanziario.ts",
+    "rapporto": "tsx tools/rapporto.ts",
+    "analisi": "tsx tools/analisi-settimanale.ts",
+    "esporta": "tsx tools/esporta.ts",
+    "nuovo-locale": "tsx tools/nuovo-locale.ts",
+    "proposta": "tsx tools/proposta.ts",
+    "foglio": "python3 tools/foglio_kpi.py",
+    "prepara-funzione": "tsx tools/prepara-funzione.ts",
+    "carica-locali": "tsx tools/carica-locali.ts"
+  },
+  "dependencies": {
+    "postgres": "3.4.5",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "~5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

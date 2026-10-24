@@ -1,0 +1,96 @@
+{
+  "id": "0b5a3a52-6f1d-4c3e-9a51-3d3f0f6a7c01",
+  "slug": "demo-trattoria",
+  "nome": "Trattoria La Prova",
+  "tipo": "trattoria",
+  "pacchetto": "pro",
+  "demo": true,
+  "fusoOrario": "Europe/Rome",
+  "contatti": {
+    "telefono": "+390600000001",
+    "whatsapp": "+393330000001",
+    "email": "demo@esempio.invalid",
+    "indirizzo": { "via": "Via dell'Esempio 12", "cap": "00000", "citta": "Borgo Demo", "provincia": "XX" },
+    "coordinate": { "lat": 41.9028, "lon": 12.4964 }
+  },
+  "titolare": { "nome": "Rina", "telefono": "+393330000002" },
+  "orari": {
+    "lun": [],
+    "mar": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "22:30" }],
+    "mer": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "22:30" }],
+    "gio": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "22:30" }],
+    "ven": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "23:00" }],
+    "sab": [{ "dalle": "12:00", "alle": "15:00" }, { "dalle": "19:00", "alle": "23:00" }],
+    "dom": [{ "dalle": "12:00", "alle": "15:00" }]
+  },
+  "chiusure": [{ "dal": "2026-12-24", "al": "2026-12-26", "motivo": "festività natalizie" }],
+  "prenotazioni": {
+    "capienzaCoperti": 50,
+    "durataTavoloMinuti": 90,
+    "intervalloMinuti": 15,
+    "ultimaPrenotazioneMinutiPrimaChiusura": 45,
+    "anticipoMinimoMinuti": 30,
+    "giorniMassimiAnticipo": 60,
+    "maxPersoneSenzaTitolare": 8,
+    "maxPersone": 40
+  },
+  "menu": [
+    {
+      "categoria": "Antipasti",
+      "voci": [
+        { "nome": "Bruschette al pomodoro", "prezzo": 6, "allergeni": ["glutine"], "vegetariano": true, "vegano": true },
+        { "nome": "Tagliere di salumi e formaggi", "prezzo": 14, "allergeni": ["latte"] },
+        { "nome": "Fiori di zucca fritti", "prezzo": 9, "allergeni": ["glutine", "latte", "pesce"] }
+      ]
+    },
+    {
+      "categoria": "Primi",
+      "voci": [
+        { "nome": "Cacio e pepe", "prezzo": 11, "allergeni": ["glutine", "latte"], "vegetariano": true },
+        { "nome": "Amatriciana", "prezzo": 12, "allergeni": ["glutine", "latte"] },
+        { "nome": "Gnocchi al sugo di pomodoro", "prezzo": 10, "allergeni": ["glutine", "uova"], "vegetariano": true },
+        { "nome": "Risotto ai funghi", "prezzo": 13, "allergeni": ["latte", "sedano"], "vegetariano": true, "senzaGlutine": true }
+      ]
+    },
+    {
+      "categoria": "Secondi",
+      "voci": [
+        { "nome": "Saltimbocca alla romana", "prezzo": 16, "allergeni": ["glutine"] },
+        { "nome": "Pollo alla cacciatora", "prezzo": 15, "allergeni": ["sedano", "solfiti"], "senzaGlutine": true },
+        { "nome": "Melanzane alla parmigiana", "prezzo": 13, "allergeni": ["latte", "uova", "glutine"], "vegetariano": true }
+      ]
+    },
+    {
+      "categoria": "Dolci",
+      "voci": [
+        { "nome": "Tiramisù della casa", "prezzo": 6, "allergeni": ["glutine", "uova", "latte"], "vegetariano": true },
+        { "nome": "Crostata di visciole", "prezzo": 6, "allergeni": ["glutine", "uova", "latte", "frutta_a_guscio"], "vegetariano": true }
+      ]
+    }
+  ],
+  "domandeFrequenti": [
+    { "tema": "parcheggio", "domanda": "C'è parcheggio?", "risposta": "C'è un parcheggio pubblico gratuito a cento metri, in piazza del Mercato." },
+    { "tema": "animali", "domanda": "Si possono portare cani?", "risposta": "I cani sono benvenuti, al guinzaglio; se serve portiamo una ciotola d'acqua." },
+    { "tema": "accessibilita", "domanda": "Il locale è accessibile in sedia a rotelle?", "risposta": "La sala è al piano terra senza gradini e il bagno è accessibile." },
+    { "tema": "pagamenti", "domanda": "Accettate carte?", "risposta": "Si può pagare in contanti, con carta e con bancomat." },
+    { "tema": "menu_fisso", "domanda": "Avete un menu fisso a pranzo?", "risposta": "Dal martedì al venerdì a pranzo c'è il menu del giorno a 15 euro: primo, secondo, acqua e caffè." },
+    { "tema": "eventi", "domanda": "Fate cene per gruppi o feste?", "risposta": "Per gruppi e feste c'è una saletta da 20 posti: la conferma la dà la titolare." },
+    { "tema": "asporto", "domanda": "Fate asporto?", "risposta": "Sì, ordinando per telefono almeno mezz'ora prima; non facciamo consegne a domicilio." },
+    { "tema": "orari", "domanda": "Siete aperti a Pasqua?", "risposta": "Per le aperture nei giorni festivi la titolare decide di settimana in settimana: posso lasciarle un messaggio." }
+  ],
+  "assistente": {
+    "lingua": "it",
+    "trasferimento": true,
+    "numeroTrasferimento": "+393330000002",
+    "conservazioneTrascrizioniGiorni": 60,
+    "istruzioniAggiuntive": []
+  },
+  "sito": {
+    "slogan": "Cucina romana di casa, dal 1987",
+    "descrizione": "Una trattoria di quartiere con trenta coperti in sala e venti nella saletta: pasta fatta in casa, verdure del mercato e i dolci della domenica.",
+    "cucina": ["romana", "italiana"],
+    "fasciaPrezzo": "€€",
+    "colori": { "primario": "#8a2d1c", "sfondo": "#fbf7f0", "testo": "#2a211c" }
+  },
+  "privacy": { "ragioneSociale": "Trattoria La Prova di Rina Esempio (locale fittizio)", "email": "privacy@esempio.invalid" }
+}

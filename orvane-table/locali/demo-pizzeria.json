@@ -1,0 +1,54 @@
+{
+  "id": "0b5a3a52-6f1d-4c3e-9a51-3d3f0f6a7c02",
+  "slug": "demo-pizzeria",
+  "nome": "Pizzeria Forno di Prova",
+  "tipo": "pizzeria",
+  "pacchetto": "start",
+  "demo": true,
+  "fusoOrario": "Europe/Rome",
+  "contatti": {
+    "telefono": "+390600000003",
+    "indirizzo": { "via": "Piazza del Campione 3", "cap": "00000", "citta": "Borgo Demo", "provincia": "XX" }
+  },
+  "titolare": { "nome": "Gennaro", "telefono": "+393330000004" },
+  "orari": {
+    "lun": [{ "dalle": "19:00", "alle": "23:30" }],
+    "mar": [],
+    "mer": [{ "dalle": "19:00", "alle": "23:30" }],
+    "gio": [{ "dalle": "19:00", "alle": "23:30" }],
+    "ven": [{ "dalle": "19:00", "alle": "00:30" }],
+    "sab": [{ "dalle": "19:00", "alle": "00:30" }],
+    "dom": [{ "dalle": "12:30", "alle": "15:00" }, { "dalle": "19:00", "alle": "23:30" }]
+  },
+  "prenotazioni": { "capienzaCoperti": 70, "durataTavoloMinuti": 75, "intervalloMinuti": 15, "maxPersoneSenzaTitolare": 10 },
+  "menu": [
+    {
+      "categoria": "Pizze",
+      "voci": [
+        { "nome": "Margherita", "prezzo": 7, "allergeni": ["glutine", "latte"], "vegetariano": true },
+        { "nome": "Marinara", "prezzo": 6, "allergeni": ["glutine"], "vegetariano": true, "vegano": true },
+        { "nome": "Diavola", "prezzo": 8.5, "allergeni": ["glutine", "latte"] },
+        { "nome": "Capricciosa", "prezzo": 9.5, "allergeni": ["glutine", "latte"] }
+      ]
+    },
+    {
+      "categoria": "Fritti",
+      "voci": [
+        { "nome": "Supplì", "prezzo": 2.5, "allergeni": ["glutine", "latte", "uova"] },
+        { "nome": "Crocchette di patate", "prezzo": 2, "allergeni": ["glutine", "latte", "uova"], "vegetariano": true }
+      ]
+    }
+  ],
+  "domandeFrequenti": [
+    { "tema": "parcheggio", "domanda": "Dove si parcheggia?", "risposta": "In piazza ci sono strisce blu, gratuite dopo le 20." },
+    { "tema": "asporto", "domanda": "Fate pizze da asporto?", "risposta": "Sì, l'asporto si ordina per telefono; il ritiro è dalle 19:00." }
+  ],
+  "sito": {
+    "slogan": "Forno a legna e lievito madre",
+    "descrizione": "Pizza napoletana cotta nel forno a legna, impasti a lunga lievitazione e fritti fatti al momento.",
+    "cucina": ["pizza", "napoletana"],
+    "fasciaPrezzo": "€",
+    "colori": { "primario": "#1f5135", "sfondo": "#f7f5ef", "testo": "#1b1f1c" }
+  },
+  "privacy": { "ragioneSociale": "Pizzeria Forno di Prova (locale fittizio)", "email": "privacy@esempio.invalid" }
+}

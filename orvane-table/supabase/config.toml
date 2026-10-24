@@ -1,0 +1,5 @@
+# Configurazione minima per la CLI di Supabase (supabase functions deploy).
+# Le chiamate arrivano da ElevenLabs, da Meta e dai siti dei clienti, che non
+# hanno un JWT di Supabase: la verifica la fa l'API (chiave, firme HMAC).
+[functions.orvane-api]
+verify_jwt = false

@@ -1,0 +1,8 @@
+node_modules
+dist
+esportazioni
+*.log
+.env
+.env.*
+!.env.esempio
+supabase/functions/_shared

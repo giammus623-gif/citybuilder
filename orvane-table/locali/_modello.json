@@ -1,0 +1,42 @@
+{
+  "_daConfermare": [
+    "orari di ogni giorno e chiusure (ferie, festivi)",
+    "numero di telefono del locale e WhatsApp",
+    "numero del titolare per avvisi e approvazioni",
+    "indirizzo, CAP e coordinate",
+    "menu completo con prezzi e allergeni verificati dal titolare",
+    "coperti, durata media del tavolo, gruppo massimo senza conferma del titolare",
+    "domande frequenti: parcheggio, animali, accessibilità, pagamenti, asporto",
+    "trasferimento di chiamata: sì o no, e verso quale numero (non quello che inoltra all'assistente)",
+    "ragione sociale, partita IVA ed email per l'informativa privacy",
+    "testi del sito, colori e foto (con permesso)"
+  ],
+  "id": "00000000-0000-4000-8000-000000000000",
+  "slug": "nuovo-locale",
+  "nome": "Nuovo locale",
+  "tipo": "ristorante",
+  "pacchetto": "pro",
+  "demo": true,
+  "fusoOrario": "Europe/Rome",
+  "contatti": {
+    "telefono": "+390000000000",
+    "indirizzo": { "via": "Via da confermare 1", "cap": "00000", "citta": "Città", "provincia": "XX" }
+  },
+  "titolare": { "nome": "Titolare", "telefono": "+390000000001" },
+  "orari": {
+    "lun": [],
+    "mar": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "22:30" }],
+    "mer": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "22:30" }],
+    "gio": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "22:30" }],
+    "ven": [{ "dalle": "12:00", "alle": "14:30" }, { "dalle": "19:00", "alle": "23:00" }],
+    "sab": [{ "dalle": "12:00", "alle": "15:00" }, { "dalle": "19:00", "alle": "23:00" }],
+    "dom": [{ "dalle": "12:00", "alle": "15:00" }]
+  },
+  "chiusure": [],
+  "prenotazioni": { "capienzaCoperti": 40, "durataTavoloMinuti": 90, "intervalloMinuti": 15, "maxPersoneSenzaTitolare": 8 },
+  "menu": [],
+  "domandeFrequenti": [],
+  "assistente": { "trasferimento": false, "conservazioneTrascrizioniGiorni": 60 },
+  "sito": { "slogan": "", "descrizione": "", "cucina": [], "fasciaPrezzo": "€€" },
+  "privacy": { "ragioneSociale": "Nuovo locale", "email": "privacy@esempio.invalid" }
+}
