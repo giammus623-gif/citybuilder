@@ -1,5 +1,7 @@
 # City Lab
 
+> **Nota:** questo repository contiene anche **[Orvane Table](orvane-table/)**, il progetto del prompt master "Project Orvane Table (investimento zero)": sito, prenotazioni e assistente telefonico AI per ristoranti. Si avvia con `cd orvane-table && npm install && npm run demo`. City Lab resta qui sotto, invariato.
+
 City builder nel browser: parti da un solo business e guarda nascere intorno a lui una città con persone, lavoro, negozi e conti veri. Il progetto completo è descritto in [`docs/PROMPT_MASTER.md`](docs/PROMPT_MASTER.md) e si costruisce per milestone (Parte 12).
 
 ## Stato
