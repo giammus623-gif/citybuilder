@@ -25,7 +25,9 @@ In italiano, senza preamboli:
 - **Rischio**: la cosa più probabile che va storta e come accorgersene.
 - **Prossima azione (24 ore)**: una sola, con tempo stimato.
 
-Se non conosci ancora città e raggio, ore settimanali reali, partita IVA, ristoratori conosciuti di persona (Parte 0.5 e Appendice D), chiedili prima di pianificare.
+## Il fondatore
+
+Dati della Parte 0.5 in [`docs/FONDATORE.md`](docs/FONDATORE.md): **Lucca e dintorni**, **2-3 ore al giorno**, **senza partita IVA** (si apre al primo sì, prima dell'acconto), **nessun ristoratore conosciuto di persona** (niente canale 1 della Parte 8.1: rete di secondo grado e colloqui a freddo, `docs/vendita/script-senza-rete.md`). Ancora da sapere: in quali ore cadono le 2-3 ore (servono le 15:00-17:30) e se c'è un lavoro dipendente. Aggiorna quel file quando arrivano risposte nuove.
 
 ## Dove siamo
 

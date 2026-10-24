@@ -13,6 +13,8 @@ Registro delle scelte prese costruendo il repository e delle cose che il prompt 
 | S5 | **Il pacchetto Start non comprende l'assistente**, ma un sito generato in modo ingenuo direbbe "risponde il nostro assistente virtuale". | Promessa falsa al cliente finale (Parte 2.4). | Il generatore del sito e le pagine nominano l'assistente solo per Pro e Premium; c'è un test. |
 | S6 | **Google Fonts remoti e mappe incorporate trasferiscono l'IP del visitatore** a terzi senza consenso. | Rischio GDPR sui siti dei clienti. | Il sito usa caratteri di sistema e carica la mappa OpenStreetMap solo al clic; nessun cookie. |
 | S7 | **Il commento "servizio e coperto compresi"** non va mai scritto senza saperlo. | Sarebbe un'informazione inventata sul menu. | Tolto: il sito non dice nulla sul coperto finché il titolare non lo indica. |
+| S8 | **Il fondatore non conosce ristoratori di persona** (24/10/2026). Il piano assume i primi due clienti dalla rete personale (Parte 8.1, canale 1) e un primo pilota conosciuto (1.4). | Il canale che doveva portare i primi incassi non c'è: il primo contratto arriverà probabilmente più tardi. | Riferimento prudente: riga "due mesi di ritardo" della Parte 10.6 (circa 19 clienti, 11.000 euro di utile). Rete di secondo grado e colloqui di ascolto a freddo: `vendita/script-senza-rete.md`, `PIANO_90_GIORNI.md` [Lucca], `FONDATORE.md`. |
+| S9 | **Lucca Comics & Games dal 28 ottobre al 1° novembre 2026**, nella prima settimana del piano. | Titolari introvabili e città congestionata. | Prima settimana solo al computer; la domanda "quante chiamate avete perso durante i Comics?" entra nei colloqui di novembre. |
 
 ## Numeri del modello finanziario
 
